@@ -2,6 +2,9 @@ const asyncHandler = require("express-async-handler");
 const Notes = require("../model/Notes");
 const { Op } = require("sequelize");
 
+// @desc    Get all notes
+// @Route   GET /api/v1/notes
+// @access  Public
 const getAllNotes = asyncHandler(async (req, res) => {
   try {
     const data = await Notes.findAll();
@@ -14,6 +17,9 @@ const getAllNotes = asyncHandler(async (req, res) => {
   }
 });
 
+// @desc    Create a new note
+// @Route   POST /api/v1/notes
+// @access  Private (need to create authentication middleware)
 const createNote = asyncHandler(async (req, res) => {
   try {
     const { title, details } = req.body;
@@ -32,6 +38,9 @@ const createNote = asyncHandler(async (req, res) => {
   }
 });
 
+// @desc    Delete a note
+// @Route   DELETE /api/v1/notes/:id
+// @access  Private (need to create authentication middleware)
 const deleteNote = asyncHandler(async (req, res) => {
   try {
     const delNote = await Notes.findByPk(req.params.id);
@@ -50,6 +59,9 @@ const deleteNote = asyncHandler(async (req, res) => {
   }
 });
 
+// @desc    Update a note
+// @Route   PUT /api/v1/notes/:id
+// @access  Private (Need to create authentication middleware)
 const updateNote = asyncHandler(async (req, res) => {
   console.log(req.body);
   const update = await Notes.findByPk(req.params.id);
